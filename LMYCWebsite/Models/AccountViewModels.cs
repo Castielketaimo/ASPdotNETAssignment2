@@ -49,9 +49,8 @@ namespace LMYCWebsite.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Username")]
+        public string Username { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -64,6 +63,12 @@ namespace LMYCWebsite.Models
 
     public class RegisterViewModel
     {
+        [Required(ErrorMessage = "Username Required:")]
+        [Display(Name = "Username")]
+        [RegularExpression(@"^[a-zA-Z'.\s]{1,40}$", ErrorMessage = "Special Characters not allowed")]
+        [StringLength(50, ErrorMessage = "Less than 50 characters")]
+        public string Username { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -79,6 +84,55 @@ namespace LMYCWebsite.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage = "First Name Required:")]
+        [RegularExpression(@"^[a-zA-Z'.\s]{1,40}$", ErrorMessage = "Special Characters not allowed")]
+        [Display(Name = "First Name:")]
+        [StringLength(50, ErrorMessage = "Less than 50 characters")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Last Name Required:")]
+        [RegularExpression(@"^[a-zA-Z'.\s]{1,40}$", ErrorMessage = "Special Characters not allowed")]
+        [Display(Name = "Last Name:")]
+        [StringLength(50, ErrorMessage = "Less than 50 characters")]
+         public string LastName { get; set; }
+
+        [Required(ErrorMessage = "Street Address Required")]
+        [Display(Name = "Street Address:")]
+        [StringLength(100, ErrorMessage = "Less than 100 characters")]
+        public string Street { get; set; }
+
+        [Required(ErrorMessage = "City Required")]
+        [Display(Name = "City:")]
+        [RegularExpression(@"^[a-zA-Z'.\s]{1,40}$", ErrorMessage = "Special Characters not allowed")]
+        [StringLength(50, ErrorMessage = "Less than 50 characters")]
+         public string City { get; set; }
+
+        [Required(ErrorMessage = "Province Required")]
+        [Display(Name = "Province:")]
+        [RegularExpression(@"^[a-zA-Z'.\s]{1,40}$", ErrorMessage = "Special Characters not allowed")]
+        [StringLength(50, ErrorMessage = "Less than 50 characters")]
+         public string Province { get; set; }
+
+        [Required(ErrorMessage = "Postal Code Required")]
+        [Display(Name = "Postal Code:")]
+        [StringLength(20, ErrorMessage = "Less than 20 characters")]
+        public string PostalCode { get; set; }
+
+        [Required(ErrorMessage = "Country Required")]
+        [Display(Name = "Country :")]
+        [StringLength(20, ErrorMessage = "Less than 20 characters")]
+        public string Country { get; set; }
+
+        [Required(ErrorMessage = "Mobile Number Required")]
+        [Display(Name = "Mobile Number:")]
+        [StringLength(20, ErrorMessage = "Less than 20 characters")]
+        public string MobileNumber { get; set; }
+
+        [Required(ErrorMessage = "Provide Sailing Experience")]
+        [Display(Name = "Sailing Experience:")]
+        [StringLength(20, ErrorMessage = "Less than 20 characters")]
+        public string SailingExp { get; set; }
     }
 
     public class ResetPasswordViewModel

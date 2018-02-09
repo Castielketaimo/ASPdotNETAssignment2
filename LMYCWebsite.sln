@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMYCWebsite", "LMYCWebsite\LMYCWebsite.csproj", "{E029EC6E-B4C2-4B79-9C34-D4306D7E5A0D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LmycWebsite", "LMYCWebsite\LmycWebsite.csproj", "{E029EC6E-B4C2-4B79-9C34-D4306D7E5A0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LmycDataLib", "LmycDataLib\LmycDataLib.csproj", "{9081CEF5-0901-464B-B0CA-904FAAE87449}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{E029EC6E-B4C2-4B79-9C34-D4306D7E5A0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E029EC6E-B4C2-4B79-9C34-D4306D7E5A0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E029EC6E-B4C2-4B79-9C34-D4306D7E5A0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9081CEF5-0901-464B-B0CA-904FAAE87449}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9081CEF5-0901-464B-B0CA-904FAAE87449}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9081CEF5-0901-464B-B0CA-904FAAE87449}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9081CEF5-0901-464B-B0CA-904FAAE87449}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
