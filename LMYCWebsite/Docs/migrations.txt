@@ -1,5 +1,5 @@
 ﻿Enable-Migrations -ContextTypeName ApplicationDbContext -ContextProjectName LmycDataLib -MigrationsDirectory Migrations\Identity
 
-Add-Migration -ConfigurationTypeName Courses.Web.Migrations.CourseMigrations.Configuration "InitialCreate"
+Add-Migration -ConfigurationTypeName LMYCWebsite.Migrations.Boats.Configuration "InitialCreate"
 
-Update-Database -ConfigurationTypeName Courses.Web.Migrations.CourseMigrations.Configuration
+update-database -ConfigurationTypeName LMYCWebsite.Migrations.Boats.Configuration

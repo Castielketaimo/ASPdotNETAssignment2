@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using LMYCWebsite.Models;
+using LmycDataLib.Models;
 
 namespace LMYCWebsite.Controllers
 {

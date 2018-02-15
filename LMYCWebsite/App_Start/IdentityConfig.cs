@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using LMYCWebsite.Models;
+using LmycDataLib.Models;
 
 namespace LMYCWebsite
 {

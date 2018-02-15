@@ -1,17 +1,16 @@
-namespace LMYCWebsite.Migrations.Identity
+namespace LMYCWebsite.Migrations.Boats
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-    using LmycDataLib.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<LmycDataLib.Models.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            MigrationsDirectory = @"Migrations\Identity";
+            MigrationsDirectory = @"Migrations\Boats";
         }
 
         protected override void Seed(LmycDataLib.Models.ApplicationDbContext context)
