@@ -3,3 +3,8 @@
 Add-Migration -ConfigurationTypeName LMYCWebsite.Migrations.Boats.Configuration "InitialCreate"
 
 update-database -ConfigurationTypeName LMYCWebsite.Migrations.Boats.Configuration
+
+=== User
+Add-Migration -ConfigurationTypeName LMYCWebsite.Migrations.Identity.Configuration "Added Roles"
+
+update-database -ConfigurationTypeName LMYCWebsite.Migrations.Identity.Configuration

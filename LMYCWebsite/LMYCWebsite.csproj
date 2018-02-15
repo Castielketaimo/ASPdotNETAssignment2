@@ -201,6 +201,10 @@
       <DependentUpon>201802152127235_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Boats\Configuration.cs" />
+    <Compile Include="Migrations\Identity\201802152243019_Added Roles.cs" />
+    <Compile Include="Migrations\Identity\201802152243019_Added Roles.Designer.cs">
+      <DependentUpon>201802152243019_Added Roles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Identity\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -208,10 +212,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Lmyc.mdf" />
-    <Content Include="App_Data\Lmyc_log.ldf">
-      <DependentUpon>Lmyc.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Docs\migrations.txt" />
@@ -297,8 +297,13 @@
     <EmbeddedResource Include="Migrations\Boats\201802152127235_InitialCreate.resx">
       <DependentUpon>201802152127235_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Identity\201802152243019_Added Roles.resx">
+      <DependentUpon>201802152243019_Added Roles.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

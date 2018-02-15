@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using LMYCWebsite.Models;
 using LmycDataLib.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace LMYCWebsite.Controllers
 {
@@ -154,6 +155,7 @@ namespace LMYCWebsite.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+                UserManager.AddToRole(user.UserName, "Member");
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
