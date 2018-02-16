@@ -1,9 +1,9 @@
-namespace LMYCWebsite.Migrations.Identity
+namespace LMYCWebsite.Migrations.User
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddedRoles : DbMigration
+    public partial class InitialCreate : DbMigration
     {
         public override void Up()
         {

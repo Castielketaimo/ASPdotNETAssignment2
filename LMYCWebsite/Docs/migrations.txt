@@ -5,6 +5,8 @@ Add-Migration -ConfigurationTypeName LMYCWebsite.Migrations.Boats.Configuration 
 update-database -ConfigurationTypeName LMYCWebsite.Migrations.Boats.Configuration
 
 === User
-Add-Migration -ConfigurationTypeName LMYCWebsite.Migrations.Identity.Configuration "Added Roles"
+Enable-Migrations -ContextTypeName ApplicationDbContext -ContextProjectName LmycDataLib -MigrationsDirectory Migrations\User
 
-update-database -ConfigurationTypeName LMYCWebsite.Migrations.Identity.Configuration
+Add-Migration -ConfigurationTypeName LMYCWebsite.Migrations.User.Configuration "Initial Create"
+
+update-database -ConfigurationTypeName LMYCWebsite.Migrations.User.Configuration
