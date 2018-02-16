@@ -14,7 +14,7 @@ namespace LmycDataLib.Models
         [key]
         [Required]
         [ScaffoldColumn(false)]
-        public string BoatId { get; set; }
+        public int BoatId { get; set; }
 
         [Required(ErrorMessage = "Please Enter Boat Name")]
         [StringLength(50, ErrorMessage = "BoatName cannot be longer than 50 characters.")]
@@ -22,6 +22,7 @@ namespace LmycDataLib.Models
         public string BoatName { get; set; }
 
         [DisplayName("Image Url")]
+        [Url(ErrorMessage = "Please enter a valid url")]
         [Required(ErrorMessage = "Please Enter Image Url")]
         public string Picture { get; set; }
 

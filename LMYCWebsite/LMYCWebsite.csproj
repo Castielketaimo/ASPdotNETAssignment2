@@ -193,12 +193,13 @@
     <Compile Include="Controllers\BoatsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Data\BoatDummyData.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Boats\201802152127235_InitialCreate.cs" />
-    <Compile Include="Migrations\Boats\201802152127235_InitialCreate.Designer.cs">
-      <DependentUpon>201802152127235_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\Boats\201802152359303_InitialCreate.cs" />
+    <Compile Include="Migrations\Boats\201802152359303_InitialCreate.Designer.cs">
+      <DependentUpon>201802152359303_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Boats\Configuration.cs" />
     <Compile Include="Migrations\User\201802152354270_Initial Create.cs" />
@@ -298,8 +299,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\Boats\201802152127235_InitialCreate.resx">
-      <DependentUpon>201802152127235_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\Boats\201802152359303_InitialCreate.resx">
+      <DependentUpon>201802152359303_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\User\201802152354270_Initial Create.resx">
       <DependentUpon>201802152354270_Initial Create.cs</DependentUpon>
