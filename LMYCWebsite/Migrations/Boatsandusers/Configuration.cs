@@ -1,23 +1,24 @@
-namespace LMYCWebsite.Migrations.User
+namespace LMYCWebsite.Migrations.Boatsandusers
 {
     using LmycDataLib.Models;
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
+using LMYCWebsite.Data;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
+using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<LmycDataLib.Models.ApplicationDbContext>
+internal sealed class Configuration : DbMigrationsConfiguration<LmycDataLib.Models.ApplicationDbContext>
+{
+    public Configuration()
     {
-        public Configuration()
-        {
-            AutomaticMigrationsEnabled = false;
-            MigrationsDirectory = @"Migrations\User";
-        }
+        AutomaticMigrationsEnabled = false;
+        MigrationsDirectory = @"Migrations\Boatsandusers";
+    }
 
-        protected override void Seed(LmycDataLib.Models.ApplicationDbContext context)
-        {
+    protected override void Seed(LmycDataLib.Models.ApplicationDbContext context)
+    {
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             if (!roleManager.RoleExists("Admin"))
                 roleManager.Create(new IdentityRole("Admin"));
@@ -33,8 +34,10 @@ namespace LMYCWebsite.Migrations.User
                     Email = "a@a.a",
                 };
                 var result = userManager.Create(user, "P@$$w0rd");
+
                 if (result.Succeeded)
                     userManager.AddToRole(userManager.FindByName("a").Id, "Admin");
+               
             }
             if (userManager.FindByName("m") == null)
             {
@@ -46,19 +49,13 @@ namespace LMYCWebsite.Migrations.User
                 var result = userManager.Create(user, "P@$$w0rd");
                 if (result.Succeeded)
                     userManager.AddToRole(userManager.FindByName("m").Id, "Member");
+                 
             }
-                //  This method will be called after migrating to the latest version.
 
-                //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-                //  to avoid creating duplicate seed data. E.g.
-                //
-                //    context.People.AddOrUpdate(
-                //      p => p.FullName,
-                //      new Person { FullName = "Andrew Peters" },
-                //      new Person { FullName = "Brice Lambson" },
-                //      new Person { FullName = "Rowan Miller" }
-                //    );
-                //
-            }
+            context.boats.AddOrUpdate(
+              b => b.BoatId, BoatDummyData.getBoats().ToArray());
+
+        context.SaveChanges();
     }
+}
 }

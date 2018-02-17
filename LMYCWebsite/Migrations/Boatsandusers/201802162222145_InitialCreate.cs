@@ -1,4 +1,4 @@
-namespace LMYCWebsite.Migrations.User
+namespace LMYCWebsite.Migrations.Boatsandusers
 {
     using System;
     using System.Data.Entity.Migrations;
@@ -11,7 +11,7 @@ namespace LMYCWebsite.Migrations.User
                 "dbo.Boats",
                 c => new
                     {
-                        BoatId = c.String(nullable: false, maxLength: 128),
+                        BoatId = c.Int(nullable: false, identity: true),
                         BoatName = c.String(nullable: false, maxLength: 50),
                         Picture = c.String(nullable: false),
                         LengthInFeet = c.Int(nullable: false),
