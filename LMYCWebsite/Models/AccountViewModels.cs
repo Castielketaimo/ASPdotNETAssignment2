@@ -66,7 +66,7 @@ namespace LMYCWebsite.Models
         [Required(ErrorMessage = "Username Required:")]
         [Display(Name = "Username")]
         [RegularExpression(@"^[a-zA-Z'.\s]{1,40}$", ErrorMessage = "Special Characters not allowed")]
-        [StringLength(50, ErrorMessage = "Less than 50 characters")]
+        [StringLength(20, ErrorMessage = "Less than 20 characters")]
         public string Username { get; set; }
 
         [Required]
@@ -116,7 +116,8 @@ namespace LMYCWebsite.Models
 
         [Required(ErrorMessage = "Postal Code Required")]
         [Display(Name = "Postal Code:")]
-        [StringLength(20, ErrorMessage = "Less than 20 characters")]
+        [RegularExpression(@"^([ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ])\ {0,1}(\d[ABCEGHJKLMNPRSTVWXYZ]\d)$", ErrorMessage = "Please input a valid Canadian postal code")]
+        [StringLength(10, ErrorMessage = "Less than 10 characters")]
         public string PostalCode { get; set; }
 
         [Required(ErrorMessage = "Country Required")]
@@ -126,12 +127,13 @@ namespace LMYCWebsite.Models
 
         [Required(ErrorMessage = "Mobile Number Required")]
         [Display(Name = "Mobile Number:")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Please input a valid phone number")]
         [StringLength(20, ErrorMessage = "Less than 20 characters")]
         public string MobileNumber { get; set; }
 
         [Required(ErrorMessage = "Provide Sailing Experience")]
         [Display(Name = "Sailing Experience:")]
-        [StringLength(20, ErrorMessage = "Less than 20 characters")]
+        [StringLength(50, ErrorMessage = "Less than 50 characters")]
         public string SailingExp { get; set; }
     }
 
