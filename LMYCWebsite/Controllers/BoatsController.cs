@@ -22,9 +22,9 @@ namespace LMYCWebsite.Controllers
         }
 
         // GET: Boats/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -37,6 +37,7 @@ namespace LMYCWebsite.Controllers
         }
 
         // GET: Boats/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -45,6 +46,7 @@ namespace LMYCWebsite.Controllers
         // POST: Boats/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "BoatId,BoatName,Picture,LengthInFeet,Make,Year,RecordCreationDate,CreatedBy")] Boat boat)
@@ -62,9 +64,10 @@ namespace LMYCWebsite.Controllers
         }
 
         // GET: Boats/Edit/5
-        public ActionResult Edit(string id)
+        [Authorize(Roles = "Admin")]
+        public ActionResult Edit(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -81,8 +84,11 @@ namespace LMYCWebsite.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "BoatId,BoatName,Picture,LengthInFeet,Make,Year,RecordCreationDate,CreatedBy")] Boat boat)
         {
+            boat.RecordCreationDate = DateTime.Now;
+            boat.CreatedBy = User.Identity.Name;
             if (ModelState.IsValid)
             {
                 db.Entry(boat).State = EntityState.Modified;
@@ -93,9 +99,10 @@ namespace LMYCWebsite.Controllers
         }
 
         // GET: Boats/Delete/5
-        public ActionResult Delete(string id)
+        [Authorize(Roles = "Admin")]
+        public ActionResult Delete(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -108,9 +115,10 @@ namespace LMYCWebsite.Controllers
         }
 
         // POST: Boats/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             Boat boat = db.boats.Find(id);
             db.boats.Remove(boat);

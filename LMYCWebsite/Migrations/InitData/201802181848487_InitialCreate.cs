@@ -1,4 +1,4 @@
-namespace LMYCWebsite.Migrations.Boatsandusers
+namespace LMYCWebsite.Migrations.InitData
 {
     using System;
     using System.Data.Entity.Migrations;

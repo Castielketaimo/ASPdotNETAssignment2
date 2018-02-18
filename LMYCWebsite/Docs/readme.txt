@@ -8,6 +8,6 @@ Email: chonjou@gmail.com
 
 Completed everything
 
-Azure Url: 
+Azure Url: https://comp4976assignment1.azurewebsites.ne
 
 No Major Challenges

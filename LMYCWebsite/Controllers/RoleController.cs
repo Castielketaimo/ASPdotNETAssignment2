@@ -40,9 +40,13 @@ namespace LMYCWebsite.Controllers
         // GET: Role/Delete/5
         public ActionResult Delete(string id)
         {
-            if (id == null || id == "Admin")
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (id == "Admin")
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             }
             IdentityRole role = roleManager.FindByName(id);
             if (role == null)
@@ -88,7 +92,7 @@ namespace LMYCWebsite.Controllers
             var admin = userManager.FindByName("a");
             if (id == null || userid == "" || (userid == admin.Id && id == "Admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             }
             IdentityRole role = roleManager.FindByName(id);
             if (role == null)

@@ -116,7 +116,7 @@ namespace LMYCWebsite.Models
 
         [Required(ErrorMessage = "Postal Code Required")]
         [Display(Name = "Postal Code:")]
-        [RegularExpression(@"^([ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ])\ {0,1}(\d[ABCEGHJKLMNPRSTVWXYZ]\d)$", ErrorMessage = "Please input a valid Canadian postal code")]
+        //[RegularExpression(@"^([ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ])\ {0,1}(\d[ABCEGHJKLMNPRSTVWXYZ]\d)$", ErrorMessage = "Please input a valid Canadian postal code")]
         [StringLength(10, ErrorMessage = "Less than 10 characters")]
         public string PostalCode { get; set; }
 
