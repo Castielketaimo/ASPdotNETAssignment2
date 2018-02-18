@@ -28,7 +28,7 @@
                         <li>@Html.ActionLink("Boats", "Index", "Boats")</li>
                         if (User.IsInRole("Admin"))
                         {
-
+                            <li>@Html.ActionLink("Roles", "Index", "Role")</li>
                         }
                      }
                 </ul>

@@ -193,6 +193,7 @@
     <Compile Include="Controllers\BoatsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Data\BoatDummyData.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -274,6 +275,11 @@
     <Content Include="Views\Boats\Details.cshtml" />
     <Content Include="Views\Boats\Edit.cshtml" />
     <Content Include="Views\Boats\Index.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Role\Add.cshtml" />
+    <Content Include="Views\Role\Create.cshtml" />
+    <Content Include="Views\Role\Delete.cshtml" />
+    <Content Include="Views\Role\Remove.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LmycDataLib\LmycDataLib.csproj">

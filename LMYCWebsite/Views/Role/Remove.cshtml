@@ -1,0 +1,39 @@
+﻿@model IQueryable<Microsoft.AspNet.Identity.EntityFramework.IdentityUser>
+@{
+    ViewBag.Title = "Remove";
+}
+
+<h2>Remove</h2>
+
+<h3>This are your users</h3>
+<div>
+    <table class="table">
+        <tr>
+            <th>
+                UserName
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" value="@ViewBag.RoleName" name="id" />
+                    <input type="hidden" value="@item.Id" name="userid" />
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        <input type="submit" value="Remove" class="btn btn-default" />
+                    </td>
+                }
+                
+            </tr>
+        }
+
+    </table>
+    <div class="form-actions no-color">
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>

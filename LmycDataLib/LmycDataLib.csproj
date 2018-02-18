@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Boat.cs" />
+    <Compile Include="Models\RoleView.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\keyAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
