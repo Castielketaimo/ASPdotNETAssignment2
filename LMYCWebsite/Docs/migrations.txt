@@ -1,8 +1,8 @@
-﻿Enable-Migrations -ContextTypeName ApplicationDbContext -ContextProjectName LmycDataLib -MigrationsDirectory Migrations\Identity
+﻿Enable-Migrations -ContextTypeName ApplicationDbContext -ContextProjectName LmycDataLib -MigrationsDirectory Migrations\Boats-and-users
 
-Add-Migration -ConfigurationTypeName LMYCWebsite.Migrations.Boats.Configuration "InitialCreate"
+Add-Migration -ConfigurationTypeName LMYCWebsite.Migrations.Boatsandusers.Configuration "InitialCreate"
 
-update-database -ConfigurationTypeName LMYCWebsite.Migrations.Boats.Configuration
+update-database -ConfigurationTypeName LMYCWebsite.Migrations.Boatsandusers.Configuration
 
 === User
 Enable-Migrations -ContextTypeName ApplicationDbContext -ContextProjectName LmycDataLib -MigrationsDirectory Migrations\User

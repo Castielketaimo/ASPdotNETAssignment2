@@ -193,19 +193,15 @@
     <Compile Include="Controllers\BoatsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Data\BoatDummyData.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Boats\201802152127235_InitialCreate.cs" />
-    <Compile Include="Migrations\Boats\201802152127235_InitialCreate.Designer.cs">
-      <DependentUpon>201802152127235_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\Boatsandusers\201802162222145_InitialCreate.cs" />
+    <Compile Include="Migrations\Boatsandusers\201802162222145_InitialCreate.Designer.cs">
+      <DependentUpon>201802162222145_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Boats\Configuration.cs" />
-    <Compile Include="Migrations\User\201802152354270_Initial Create.cs" />
-    <Compile Include="Migrations\User\201802152354270_Initial Create.Designer.cs">
-      <DependentUpon>201802152354270_Initial Create.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\User\Configuration.cs" />
+    <Compile Include="Migrations\Boatsandusers\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -219,6 +215,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Docs\migrations.txt" />
+    <Content Include="Docs\readme.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -297,15 +294,12 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\Boats\201802152127235_InitialCreate.resx">
-      <DependentUpon>201802152127235_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\User\201802152354270_Initial Create.resx">
-      <DependentUpon>201802152354270_Initial Create.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\Boatsandusers\201802162222145_InitialCreate.resx">
+      <DependentUpon>201802162222145_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
