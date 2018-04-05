@@ -28,5 +28,7 @@ namespace Lmyc_server.Data
         public DbSet<Lmyc_server.Models.ApplicationUser> ApplicationUser { get; set; }
 
         public DbSet<Lmyc_server.Models.RoleViewModel> RoleViewModel { get; set; }
+
+        public DbSet<Lmyc_server.Models.Reservation> Reservation { get; set; }
     }
 }
