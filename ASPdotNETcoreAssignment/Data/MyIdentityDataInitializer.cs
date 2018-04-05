@@ -22,9 +22,11 @@ namespace ASPdotNETcoreAssignment.Models
             if (userManager.FindByNameAsync
                 ("a").Result == null)
             {
-                IdentityUser user = new IdentityUser();
-                user.UserName = "a";
-                user.Email = "a@a.a";]
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "a",
+                    Email = "a@a.a"
+                };
 
                 IdentityResult result = userManager.CreateAsync
                 (user, "P@$$w0rd").Result;
@@ -40,9 +42,11 @@ namespace ASPdotNETcoreAssignment.Models
             if (userManager.FindByNameAsync
                 ("m").Result == null)
             {
-                IdentityUser user = new IdentityUser();
-                user.UserName = "m";
-                user.Email = "m@m.m";
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "m",
+                    Email = "m@m.m"
+                };
 
                 IdentityResult result = userManager.CreateAsync
                 (user, "P@$$w0rd").Result;
@@ -61,8 +65,10 @@ namespace ASPdotNETcoreAssignment.Models
             if (!roleManager.RoleExistsAsync
             ("Admin").Result)
             {
-                IdentityRole role = new IdentityRole();
-                role.Name = "Admin";
+                IdentityRole role = new IdentityRole
+                {
+                    Name = "Admin"
+                };
                 IdentityResult roleResult = roleManager.
                 CreateAsync(role).Result;
             }
@@ -71,8 +77,10 @@ namespace ASPdotNETcoreAssignment.Models
             if (!roleManager.RoleExistsAsync
                ("Member").Result)
             {
-                IdentityRole role = new IdentityRole();
-                role.Name = "Member";
+                IdentityRole role = new IdentityRole
+                {
+                    Name = "Member"
+                };
                 IdentityResult roleResult = roleManager.
                 CreateAsync(role).Result;
             }
