@@ -7,11 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Lmyc_server.Data;
 using Lmyc_server.Models;
+using Microsoft.AspNetCore.Authorization;
+using AspNet.Security.OAuth.Validation;
 
 namespace Lmyc_server.Controllers.API
 {
     [Produces("application/json")]
     [Route("api/Boats")]
+    [Authorize(Policy = "RequireLogin", AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
     public class BoatsController : Controller
     {
         private readonly ApplicationDbContext _context;

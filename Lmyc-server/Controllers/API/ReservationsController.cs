@@ -7,11 +7,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Lmyc_server.Data;
 using Lmyc_server.Models;
+using AspNet.Security.OAuth.Validation;
+using System.Net;
+using Microsoft.AspNetCore.Server.HttpSys;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Lmyc_server.Controllers.API
 {
     [Produces("application/json")]
     [Route("api/Reservations")]
+    [Authorize(Policy = "RequireLogin", AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
+    [EnableCors("CorsPolicy")]
     public class ReservationsController : Controller
     {
         private readonly ApplicationDbContext _context;

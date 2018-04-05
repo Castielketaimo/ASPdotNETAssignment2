@@ -14,16 +14,16 @@ namespace Lmyc_server.Controllers.API
 {
     [Produces("application/json")]
     [Route("api/AccountAPI")]
-    public class AccountController : Controller
+    public class AccountAPIController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
 
-        public AccountController(
+        public AccountAPIController(
             UserManager<ApplicationUser> userManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountAPIController> logger)
         {
             _userManager = userManager;
             _emailSender = emailSender;
@@ -64,7 +64,7 @@ namespace Lmyc_server.Controllers.API
             }
 
             _logger.LogInformation("User created a new account with password.");
-            await _userManager.AddToRoleAsync(user, "Member");
+            //await _userManager.AddToRoleAsync(user, "Member");
 
             return Ok();
         }
