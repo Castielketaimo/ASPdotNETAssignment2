@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Lmyc_server.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,82 +11,100 @@ namespace Lmyc_server.Data
 {
     public class IdentityDataInitializer
     {
-        public static void SeedData
-        (UserManager<IdentityUser> userManager,
-        RoleManager<IdentityRole> roleManager)
+        public static async Task Initialize(IServiceProvider serviceProvider)
         {
-            SeedRoles(roleManager);
-            SeedUsers(userManager);
-        }
-
-        public static void SeedUsers
-        (UserManager<IdentityUser> userManager)
-        {
-            if (userManager.FindByNameAsync
-                ("a").Result == null)
+            using (var context = new ApplicationDbContext(
+                serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
             {
-                IdentityUser user = new IdentityUser
+                string[] roleNames = { "Admin", "Member"};
+
+                foreach (var roleName in roleNames)
                 {
-                    UserName = "a",
+                    await EnsureRole(serviceProvider, null, roleName);
+                }
+
+                var admin = new ApplicationUser
+                {
+                    UserName = "a@a.a",
                     Email = "a@a.a"
                 };
 
-                IdentityResult result = userManager.CreateAsync
-                (user, "P@$$w0rd").Result;
+                var adminId = await EnsureUser(serviceProvider, admin, "P@$$w0rd");
+                await EnsureRole(serviceProvider, adminId, "Admin");
 
-                if (result.Succeeded)
+                // Look for any boats in the database
+                if (context.Boat.Any())
                 {
-                    userManager.AddToRoleAsync(user,
-                                        "Admin").Wait();
+                    return; // DB have been seeded
                 }
-            }
 
-
-            if (userManager.FindByNameAsync
-                ("m").Result == null)
-            {
-                IdentityUser user = new IdentityUser
+                var boats = GetBoats();
+                foreach (Boat b in boats)
                 {
-                    UserName = "m",
-                    Email = "m@m.m"
-                };
-
-                IdentityResult result = userManager.CreateAsync
-                (user, "P@$$w0rd").Result;
-
-                if (result.Succeeded)
-                {
-                    userManager.AddToRoleAsync(user,
-                                        "Member").Wait();
+                    context.Boat.Add(b);
                 }
+
+                context.SaveChanges();
             }
         }
 
-        public static void SeedRoles
-        (RoleManager<IdentityRole> roleManager)
+
+
+        private static async Task<IdentityResult> EnsureRole(IServiceProvider serviceProvider, string uid, string role)
         {
-            if (!roleManager.RoleExistsAsync
-            ("Admin").Result)
+            IdentityResult identityResult = null;
+            var roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>();
+
+            if (!await roleManager.RoleExistsAsync(role))
             {
-                IdentityRole role = new IdentityRole
-                {
-                    Name = "Admin"
-                };
-                IdentityResult roleResult = roleManager.
-                CreateAsync(role).Result;
+                identityResult = await roleManager.CreateAsync(new IdentityRole(role));
             }
 
-
-            if (!roleManager.RoleExistsAsync
-               ("Member").Result)
+            if (uid != null)
             {
-                IdentityRole role = new IdentityRole
-                {
-                    Name = "Member"
-                };
-                IdentityResult roleResult = roleManager.
-                CreateAsync(role).Result;
+                var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
+
+                var user = await userManager.FindByIdAsync(uid);
+
+                identityResult = await userManager.AddToRoleAsync(user, role);
             }
+
+            return identityResult;
+        }
+
+
+        private static async Task<string> EnsureUser(IServiceProvider serviceProvider, ApplicationUser newUser, string password)
+        {
+            var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
+            var user = await userManager.FindByNameAsync(newUser.UserName);
+
+            if (user == null)
+            {
+                user = new ApplicationUser
+                {
+                    UserName = newUser.UserName,
+                    Email = newUser.Email
+                };
+
+                await userManager.CreateAsync(user, password);
+            }
+
+            return user.Id;
+        }
+        private static List<Boat> GetBoats()
+        {
+            List<Boat> boats = new List<Boat>()
+            {
+                new Boat()
+                {
+                    BoatName = "Sharqui",
+                    LengthInFeet = 25,
+                    Make = "C&C",
+                    Year = 1981,
+                    CreatedBy = "Someone",
+                }
+            };
+            return boats;
         }
     }
 }

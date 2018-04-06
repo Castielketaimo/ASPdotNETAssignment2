@@ -11,12 +11,13 @@ using AspNet.Security.OAuth.Validation;
 using System.Net;
 using Microsoft.AspNetCore.Server.HttpSys;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 namespace Lmyc_server.Controllers.API
 {
     [Produces("application/json")]
     [Route("api/Reservations")]
-    [Authorize(Policy = "RequireLogin", AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
+    //[Authorize(Policy = "RequireLogin", AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
     [EnableCors("CorsPolicy")]
     public class ReservationsController : Controller
     {

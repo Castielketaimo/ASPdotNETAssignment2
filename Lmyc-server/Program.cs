@@ -24,14 +24,8 @@ namespace Lmyc_server
                 var serviceProvider = scope.ServiceProvider;
                 try
                 {
-                    var userManager = serviceProvider.
-                    GetRequiredService<UserManager<IdentityUser>>();
-
-                    var roleManager = serviceProvider.
-                    GetRequiredService<RoleManager<IdentityRole>>();
-
-                    IdentityDataInitializer.SeedData
-                    (userManager, roleManager);
+                    IdentityDataInitializer.Initialize
+                    (serviceProvider).Wait();
                 }
                 catch
                 {
