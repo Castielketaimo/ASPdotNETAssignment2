@@ -101,7 +101,7 @@ namespace Lmyc_server.Data
                     LengthInFeet = 25,
                     Make = "C&C",
                     Year = 1981,
-                    CreatedBy = "Someone",
+                    Picture = "https://patiliyo.com/wp-content/uploads/2017/07/ruyada-kedi-gormek.jpg"
                 }
             };
             return boats;

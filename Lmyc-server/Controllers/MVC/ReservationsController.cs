@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Lmyc_server.Data;
 using Lmyc_server.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Lmyc_server.Controllers.MVC
 {
+    [Authorize (Policy = "RequireLogin")]
     public class ReservationsController : Controller
     {
         private readonly ApplicationDbContext _context;

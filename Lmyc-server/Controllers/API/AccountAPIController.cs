@@ -64,7 +64,7 @@ namespace Lmyc_server.Controllers.API
             }
 
             _logger.LogInformation("User created a new account with password.");
-            //await _userManager.AddToRoleAsync(user, "Member");
+            await _userManager.AddToRoleAsync(user, "Member");
 
             return Ok();
         }

@@ -92,7 +92,12 @@ namespace Lmyc_server
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
-            
+            // Add policies for controller to allow access to admin or users
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireLogin", policy => policy.RequireAuthenticatedUser());
+                options.AddPolicy("RequireAdmin", policy => policy.RequireRole("Admin"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

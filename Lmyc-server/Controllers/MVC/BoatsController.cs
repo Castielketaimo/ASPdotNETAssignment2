@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Lmyc_server.Data;
 using Lmyc_server.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Lmyc_server.Controllers.MVC
 {
+    [Authorize (Policy="RequireLogin")]
     public class BoatsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -45,6 +47,7 @@ namespace Lmyc_server.Controllers.MVC
             return View(boat);
         }
 
+        [Authorize (Policy = "RequireAdmin")]
         // GET: Boats/Create
         public IActionResult Create()
         {
@@ -56,6 +59,7 @@ namespace Lmyc_server.Controllers.MVC
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Policy = "RequireAdmin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BoatName,Picture,LengthInFeet,Make,Year")] Boat boat)
         {
@@ -70,6 +74,7 @@ namespace Lmyc_server.Controllers.MVC
         }
 
         // GET: Boats/Edit/5
+        [Authorize(Policy = "RequireAdmin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -91,6 +96,7 @@ namespace Lmyc_server.Controllers.MVC
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "RequireAdmin")]
         public async Task<IActionResult> Edit(int id, [Bind("BoatName,Picture,LengthInFeet,Make,Year")] Boat boat)
         {
             if (id != boat.BoatId)
@@ -123,6 +129,7 @@ namespace Lmyc_server.Controllers.MVC
         }
 
         // GET: Boats/Delete/5
+        [Authorize(Policy = "RequireAdmin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -144,6 +151,7 @@ namespace Lmyc_server.Controllers.MVC
         // POST: Boats/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "RequireAdmin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var boat = await _context.Boat.SingleOrDefaultAsync(m => m.BoatId == id);
