@@ -11,9 +11,10 @@ using System;
 namespace Lmyc_server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180407222551_Update user models without boats")]
+    partial class Updateusermodelswithoutboats
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,6 +118,8 @@ namespace Lmyc_server.Migrations
                     b.Property<int>("Year");
 
                     b.HasKey("BoatId");
+
+                    b.HasIndex("CreatedBy");
 
                     b.ToTable("Boat");
                 });
@@ -406,6 +409,13 @@ namespace Lmyc_server.Migrations
                     b.HasOne("Lmyc_server.Models.RoleViewModel")
                         .WithMany("Users")
                         .HasForeignKey("RoleViewModelRoleId");
+                });
+
+            modelBuilder.Entity("Lmyc_server.Models.Boat", b =>
+                {
+                    b.HasOne("Lmyc_server.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy");
                 });
 
             modelBuilder.Entity("Lmyc_server.Models.Reservation", b =>

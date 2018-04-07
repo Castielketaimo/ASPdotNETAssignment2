@@ -44,7 +44,5 @@ namespace Lmyc_server.Models
         [ScaffoldColumn(false)]
         [Display(Name = "Created By")]
         public string CreatedBy { get; set; }
-
-        public ApplicationUser User { get; set; }
     }
 }

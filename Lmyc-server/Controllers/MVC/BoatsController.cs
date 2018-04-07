@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Lmyc_server.Data;
 using Lmyc_server.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Lmyc_server.Controllers.MVC
 {
@@ -15,16 +16,18 @@ namespace Lmyc_server.Controllers.MVC
     public class BoatsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private UserManager<ApplicationUser> _userManager;
 
-        public BoatsController(ApplicationDbContext context)
+        public BoatsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Boats
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Boat.Include(b => b.User);
+            var applicationDbContext = _context.Boat;
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -37,7 +40,6 @@ namespace Lmyc_server.Controllers.MVC
             }
 
             var boat = await _context.Boat
-                .Include(b => b.User)
                 .SingleOrDefaultAsync(m => m.BoatId == id);
             if (boat == null)
             {
@@ -51,7 +53,6 @@ namespace Lmyc_server.Controllers.MVC
         // GET: Boats/Create
         public IActionResult Create()
         {
-            ViewData["CreatedBy"] = new SelectList(_context.ApplicationUser, "Id", "Id");
             return View();
         }
 
@@ -65,11 +66,11 @@ namespace Lmyc_server.Controllers.MVC
         {
             if (ModelState.IsValid)
             {
+                boat.CreatedBy = _userManager.GetUserId(User);
                 _context.Add(boat);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CreatedBy"] = new SelectList(_context.ApplicationUser, "Id", "Id", boat.CreatedBy);
             return View(boat);
         }
 
@@ -87,7 +88,6 @@ namespace Lmyc_server.Controllers.MVC
             {
                 return NotFound();
             }
-            ViewData["CreatedBy"] = new SelectList(_context.ApplicationUser, "Id", "Id", boat.CreatedBy);
             return View(boat);
         }
 
@@ -124,7 +124,6 @@ namespace Lmyc_server.Controllers.MVC
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CreatedBy"] = new SelectList(_context.ApplicationUser, "Id", "Id", boat.CreatedBy);
             return View(boat);
         }
 
@@ -138,7 +137,6 @@ namespace Lmyc_server.Controllers.MVC
             }
 
             var boat = await _context.Boat
-                .Include(b => b.User)
                 .SingleOrDefaultAsync(m => m.BoatId == id);
             if (boat == null)
             {

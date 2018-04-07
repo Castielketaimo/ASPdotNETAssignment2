@@ -20,7 +20,5 @@ namespace Lmyc_server.Models
         public string Country { get; set; }
         public string MobileNumber { get; set; }
         public string SailingExperience { get; set; }
-
-        public ICollection<Boat> Boats { get; set; }
     }
 }

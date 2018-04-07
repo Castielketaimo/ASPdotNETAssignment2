@@ -30,9 +30,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Year)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -56,10 +53,7 @@
                     @Html.DisplayFor(modelItem => item.Year)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.User.Id)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.BoatId">Details |</a>
+                    <a asp-action="Details" asp-route-id="@item.BoatId">Details</a> |
                     @if (User.IsInRole("Admin"))
                     {
                         <a asp-action="Edit" asp-route-id="@item.BoatId">Edit |</a>
