@@ -9,12 +9,14 @@ using Lmyc_server.Data;
 using Lmyc_server.Models;
 using Microsoft.AspNetCore.Authorization;
 using AspNet.Security.OAuth.Validation;
+using Microsoft.AspNetCore.Cors;
 
 namespace Lmyc_server.Controllers.API
 {
     [Produces("application/json")]
     [Route("api/Boats")]
-    [Authorize(Policy = "RequireLogin", AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
+    //[Authorize(Policy = "RequireLogin", AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
+    //[EnableCors("CorsPolicy")]
     public class BoatsController : Controller
     {
         private readonly ApplicationDbContext _context;

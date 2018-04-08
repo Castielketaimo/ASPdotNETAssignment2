@@ -27,9 +27,6 @@ namespace Lmyc_server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-
-
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
@@ -39,6 +36,11 @@ namespace Lmyc_server
                 // to replace the default OpenIddict entities.
                 options.UseOpenIddict();
             });
+
+            services.AddMvc();
+
+
+            
 
             //Add service and create Policy with options
             services.AddCors(options =>
@@ -115,6 +117,7 @@ namespace Lmyc_server
             }
 
             app.UseStaticFiles();
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 
             app.UseAuthentication();
 
