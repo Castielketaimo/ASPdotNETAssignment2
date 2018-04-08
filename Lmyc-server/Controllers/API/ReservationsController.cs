@@ -91,17 +91,28 @@ namespace Lmyc_server.Controllers.API
 
         // POST: api/Reservations
         [HttpPost]
-        public async Task<IActionResult> PostReservation([FromBody] Reservation reservation)
+        public async Task<IActionResult> PostReservation([FromBody] Reservation newReservation)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Reservation.Add(reservation);
+            var reservations = _context.Reservation.Where(r => r.Boat == newReservation.Boat && r.StartDateTime.Day == newReservation.StartDateTime.Day);
+
+            foreach (var reservation in reservations)
+            {
+                if(newReservation.StartDateTime < reservation.EndDateTime
+                    || (newReservation.StartDateTime < reservation.StartDateTime && newReservation.EndDateTime < reservation.EndDateTime))
+                {
+                    return BadRequest("Reservation at that time is not possible");
+                }
+            }
+
+            _context.Reservation.Add(newReservation);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetReservation", new { id = reservation.ReservationId }, reservation);
+            return CreatedAtAction("GetReservation", new { id = newReservation.ReservationId }, newReservation);
         }
 
         // DELETE: api/Reservations/5
