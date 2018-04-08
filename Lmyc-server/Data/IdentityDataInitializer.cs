@@ -32,18 +32,25 @@ namespace Lmyc_server.Data
                 var adminId = await EnsureUser(serviceProvider, admin, "P@$$w0rd");
                 await EnsureRole(serviceProvider, adminId, "Admin");
 
+                var boats = GetBoats(admin);
+
                 // Look for any boats in the database
-                if (context.Boat.Any())
+                if (!context.Boat.Any())
                 {
-                    return; // DB have been seeded
+                    foreach (Boat b in boats)
+                    {
+                        context.Boat.Add(b);
+                    }
                 }
 
-                var boats = GetBoats();
-                foreach (Boat b in boats)
+                if(!context.Reservation.Any())
                 {
-                    context.Boat.Add(b);
+                    var reservations = GetReservations(admin, boats.ElementAt(0));
+                    foreach (Reservation r in reservations)
+                    {
+                        context.Reservation.Add(r);
+                    }
                 }
-
                 context.SaveChanges();
             }
         }
@@ -91,7 +98,7 @@ namespace Lmyc_server.Data
 
             return user.Id;
         }
-        private static List<Boat> GetBoats()
+        private static List<Boat> GetBoats(ApplicationUser admin)
         {
             List<Boat> boats = new List<Boat>()
             {
@@ -101,10 +108,46 @@ namespace Lmyc_server.Data
                     LengthInFeet = 25,
                     Make = "C&C",
                     Year = 1981,
-                    Picture = "https://patiliyo.com/wp-content/uploads/2017/07/ruyada-kedi-gormek.jpg"
+                    Picture = "https://patiliyo.com/wp-content/uploads/2017/07/ruyada-kedi-gormek.jpg",
+                    CreatedBy = admin.Id,
+                },
+                new Boat()
+                {
+                    BoatName = "BoatyMcBoatFace",
+                    LengthInFeet = 25,
+                    Make = "PotatoLand",
+                    Year = 1995,
+                    Picture = "https://en.wikipedia.org/wiki/File:Octopus-yacht.jpg",
+                    CreatedBy = admin.Id
                 }
             };
             return boats;
+        }
+
+        private static List<Reservation> GetReservations(ApplicationUser admin, Boat boat)
+        {
+            List<Reservation> reservations = new List<Reservation>()
+            {
+                new Reservation()
+                {
+                    Boat = boat,
+                    BoatId = boat.BoatId,
+                    CreatedBy = admin.Id,
+                    User = admin,
+                    StartDateTime = DateTime.Now,
+                    EndDateTime = DateTime.Now.AddHours(1)
+                },
+                new Reservation()
+                {
+                    Boat = boat,
+                    BoatId = boat.BoatId,
+                    CreatedBy = admin.Id,
+                    User = admin,
+                    StartDateTime = DateTime.Now.AddHours(2),
+                    EndDateTime = DateTime.Now.AddHours(4)
+                }
+            };
+            return reservations;
         }
     }
 }

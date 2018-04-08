@@ -61,17 +61,28 @@ namespace Lmyc_server.Controllers.MVC
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReservationId,StartDateTime,EndDateTime,CreatedBy,BoatId")] Reservation reservation)
+        public async Task<IActionResult> Create([Bind("ReservationId,StartDateTime,EndDateTime,CreatedBy,BoatId")] Reservation newReservation)
         {
+            ViewData["BoatId"] = new SelectList(_context.Boat, "BoatId", "BoatName", newReservation.BoatId);
+            ViewData["CreatedBy"] = new SelectList(_context.ApplicationUser, "Id", "Id", newReservation.CreatedBy);
             if (ModelState.IsValid)
             {
-                _context.Add(reservation);
+                var reservations = _context.Reservation.Where(r => r.Boat == newReservation.Boat && r.StartDateTime.Day == newReservation.StartDateTime.Day);
+
+                foreach (var reservation in reservations)
+                {
+                    if (newReservation.StartDateTime < reservation.EndDateTime
+                        || (newReservation.StartDateTime < reservation.StartDateTime && newReservation.EndDateTime < reservation.EndDateTime))
+                    {
+                        return View(newReservation);
+                    }
+                }
+                _context.Add(newReservation);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BoatId"] = new SelectList(_context.Boat, "BoatId", "BoatName", reservation.BoatId);
-            ViewData["CreatedBy"] = new SelectList(_context.ApplicationUser, "Id", "Id", reservation.CreatedBy);
-            return View(reservation);
+
+            return View(newReservation);
         }
 
         // GET: Reservations/Edit/5
