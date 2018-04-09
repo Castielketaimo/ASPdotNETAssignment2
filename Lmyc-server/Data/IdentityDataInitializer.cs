@@ -23,15 +23,17 @@ namespace Lmyc_server.Data
                     await EnsureRole(serviceProvider, null, roleName);
                 }
 
-                var admin = new ApplicationUser
+                //Make the admin
+                var dummyAdmin = new ApplicationUser
                 {
                     UserName = "a@a.a",
                     Email = "a@a.a"
                 };
 
-                var adminId = await EnsureUser(serviceProvider, admin, "P@$$w0rd");
+                var adminId = await EnsureUser(serviceProvider, dummyAdmin, "P@$$w0rd");
+                var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
+                var admin = await userManager.FindByIdAsync(adminId);
                 await EnsureRole(serviceProvider, adminId, "Admin");
-
                 var boats = GetBoats(admin);
 
                 // Look for any boats in the database
