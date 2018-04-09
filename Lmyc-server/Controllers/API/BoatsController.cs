@@ -15,8 +15,8 @@ namespace Lmyc_server.Controllers.API
 {
     [Produces("application/json")]
     [Route("api/Boats")]
-    //[Authorize(Policy = "RequireLogin", AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
-    //[EnableCors("CorsPolicy")]
+    [Authorize(Policy = "RequireLogin", AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
+    [EnableCors("CorsPolicy")]
     public class BoatsController : Controller
     {
         private readonly ApplicationDbContext _context;

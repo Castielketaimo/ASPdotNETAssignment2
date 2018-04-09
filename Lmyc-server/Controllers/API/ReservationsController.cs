@@ -17,8 +17,8 @@ namespace Lmyc_server.Controllers.API
 {
     [Produces("application/json")]
     [Route("api/Reservations")]
-    //[Authorize(Policy = "RequireLogin", AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
-    //[EnableCors("CorsPolicy")]
+    [Authorize(Policy = "RequireLogin", AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
+    [EnableCors("CorsPolicy")]
     public class ReservationsController : Controller
     {
         private readonly ApplicationDbContext _context;
