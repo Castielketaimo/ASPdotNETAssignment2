@@ -12,6 +12,7 @@ using System.Net;
 using Microsoft.AspNetCore.Server.HttpSys;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Identity;
 
 namespace Lmyc_server.Controllers.API
 {
@@ -22,17 +23,21 @@ namespace Lmyc_server.Controllers.API
     public class ReservationsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ReservationsController(ApplicationDbContext context)
+        public ReservationsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: api/Reservations
         [HttpGet]
         public IEnumerable<Reservation> GetReservation()
         {
-            return _context.Reservation;
+            return _context.Reservation
+                .Include(b => b.Boat)
+                .Include(u => u.User);
         }
 
         // GET: api/Reservations/5
@@ -97,17 +102,9 @@ namespace Lmyc_server.Controllers.API
             {
                 return BadRequest(ModelState);
             }
-
-            var reservations = _context.Reservation.Where(r => r.Boat == newReservation.Boat && r.StartDateTime.Day == newReservation.StartDateTime.Day);
-
-            foreach (var reservation in reservations)
-            {
-                if(newReservation.StartDateTime < reservation.EndDateTime
-                    || (newReservation.StartDateTime < reservation.StartDateTime && newReservation.EndDateTime < reservation.EndDateTime))
-                {
-                    return BadRequest("Reservation at that time is not possible");
-                }
-            }
+            var user = await _userManager.GetUserAsync(User);
+            newReservation.Boat = _context.Boat.SingleOrDefault(b => b.BoatId == newReservation.BoatId);
+            newReservation.User = user;
 
             _context.Reservation.Add(newReservation);
             await _context.SaveChangesAsync();

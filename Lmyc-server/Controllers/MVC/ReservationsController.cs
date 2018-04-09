@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Lmyc_server.Data;
 using Lmyc_server.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Lmyc_server.Controllers.MVC
 {
@@ -15,14 +16,17 @@ namespace Lmyc_server.Controllers.MVC
     public class ReservationsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ReservationsController(ApplicationDbContext context)
+
+        public ReservationsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-        // GET: Reservations
-        public async Task<IActionResult> Index()
+            // GET: Reservations
+            public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Reservation.Include(r => r.Boat).Include(r => r.User);
             return View(await applicationDbContext.ToListAsync());
@@ -52,7 +56,7 @@ namespace Lmyc_server.Controllers.MVC
         public IActionResult Create()
         {
             ViewData["BoatId"] = new SelectList(_context.Boat, "BoatId", "BoatName");
-            ViewData["CreatedBy"] = new SelectList(_context.ApplicationUser, "Id", "Id");
+            ViewData["CreatedBy"] = new SelectList(_context.ApplicationUser, "Id", "UserName");
             return View();
         }
 
@@ -67,16 +71,20 @@ namespace Lmyc_server.Controllers.MVC
             ViewData["CreatedBy"] = new SelectList(_context.ApplicationUser, "Id", "Id", newReservation.CreatedBy);
             if (ModelState.IsValid)
             {
-                var reservations = _context.Reservation.Where(r => r.Boat == newReservation.Boat && r.StartDateTime.Day == newReservation.StartDateTime.Day);
+                var reservations = await _context.Reservation.ToListAsync();
+                ////.Where(r => r.Boat == newReservation.Boat && r.StartDateTime.Day == newReservation.StartDateTime.Day);
 
-                foreach (var reservation in reservations)
-                {
-                    if (newReservation.StartDateTime < reservation.EndDateTime
-                        || (newReservation.StartDateTime < reservation.StartDateTime && newReservation.EndDateTime < reservation.EndDateTime))
-                    {
-                        return View(newReservation);
-                    }
-                }
+                //foreach (var reservation in reservations)
+                //{
+                //    if (newReservation.StartDateTime < reservation.EndDateTime
+                //        || (newReservation.StartDateTime < reservation.StartDateTime && newReservation.EndDateTime < reservation.EndDateTime))
+                //    {
+                //        return View(newReservation);
+                //    }
+                //}
+                var user = await _userManager.GetUserAsync(User);
+                newReservation.Boat = _context.Boat.SingleOrDefault(b => b.BoatId == newReservation.BoatId);
+                newReservation.User = user;
                 _context.Add(newReservation);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
