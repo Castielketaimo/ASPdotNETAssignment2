@@ -44,8 +44,9 @@ namespace Lmyc_server.Data
                         context.Boat.Add(b);
                     }
                 }
+                context.SaveChanges();
 
-                if(!context.Reservation.Any())
+                if (!context.Reservation.Any())
                 {
                     var reservations = GetReservations(admin, boats.ElementAt(0));
                     foreach (Reservation r in reservations)
@@ -119,7 +120,7 @@ namespace Lmyc_server.Data
                     LengthInFeet = 25,
                     Make = "PotatoLand",
                     Year = 1995,
-                    Picture = "https://en.wikipedia.org/wiki/File:Octopus-yacht.jpg",
+                    Picture = "http://tinytimes.com/wp-content/uploads/2014/01/halifax-harbour-theodore-tugboat_1.jpg",
                     CreatedBy = admin.Id
                 }
             };

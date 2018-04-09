@@ -1,3 +1,1 @@
-﻿Use Package Manager Console
-add-migration initmigration
-update-database
+﻿dotnet ef database update
