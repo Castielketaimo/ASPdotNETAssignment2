@@ -102,9 +102,6 @@ namespace Lmyc_server.Controllers.API
             {
                 return BadRequest(ModelState);
             }
-            var user = await _userManager.GetUserAsync(User);
-            newReservation.Boat = _context.Boat.SingleOrDefault(b => b.BoatId == newReservation.BoatId);
-            newReservation.User = user;
 
             _context.Reservation.Add(newReservation);
             await _context.SaveChangesAsync();
